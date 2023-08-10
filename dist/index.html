@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/images/tick-tick.png" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,7 +11,53 @@
   <title>Todo list</title>
 </head>
 <body>
-  
+  <header class="header">
+    <nav id="nav">
+      <h1>TaskMaster</h1>
+    </nav>
+  </header>
+  <section class="container">
+    <div id="sidebar" class="sidebar">
+      <div class="home">
+        <h1 class="subheading">Home</h1>
+        <div class="tiles" id="inbox-all-task">
+          <img src="/images/inbox.png" alt="inbox" class="icon">
+          <p class="data-name">Inbox</p>
+        </div>
+        <div class="tiles" id="today-task">
+          <img src="/images/today.png" alt="date" class="icon">
+          <p class="data-name">Today</p>
+        </div>
+        <div class="tiles" id="this-week-tesk">
+          <img src="/images/week.png" alt="" class="icon">
+          <p class="data-name">This week</p>
+        </div>
+        <div class="tiles" id="important-task">
+          <img src="/images/star.png" alt="" class="icon">
+          <p class="data-name">Important</p>
+        </div>
+      </div>
+      <!-- User projects -->
+      <div class="project">
+        <h1 class="subheading">Projects</h1>
+        <div id="projectList"></div>
+        <div class="add-project-popup" id="projectName">
+          <input type="text" class="input-add-project" id="input-add-project">
+          <div class="add-project-popup-buttons">
+            <button class="button-add-project" id="button-add-project">Add</button>
+            <button class="button-cancel-project" id="button-cancel-project">Cancel</button>
+          </div>
+        </div>
+
+        <div class="tiles" id="add-new-project">
+          <img src="/images/plus-icon.png" alt="" class="icon">
+          <p class="data-name">Add Project</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-preview" id="project-preview"></div>
+  </section>
   <footer>
     <p>Copyright © Drkcodey</p>
     <a href="https://github.com/Drk-codey"><i class="fab fa-github"></i></a>
