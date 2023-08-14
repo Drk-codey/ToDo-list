@@ -89,7 +89,7 @@ body {
 }
 
 .add-project-popup {
-  /* display: none; */
+  display: none;
   margin-bottom: 15px;
 }
 
@@ -150,6 +150,7 @@ body {
 
 #title {
   font-size: 30px;
+  text-transform: capitalize;
 }
 
 #projectTitle {
@@ -165,4 +166,60 @@ body {
   /* right: 0; */
   /* margin-left: 175px; */
   width: 26px;
+  outline: 1px solid red;
+}
+
+/* Task Styling Section  */
+.add-task-popup {
+  display: none;
+  width: 100%;
+  padding: 30px;
+  margin-bottom: 12px;
+  background-color: #dddddd;
+  border-radius: 10px;
+}
+
+.input-taskName,
+.input-taskDate {
+  width: 100%;
+  font-size: 17px;
+  padding: 6px;
+  margin-bottom: 8px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.add-task-popup textarea {
+  width: 100%;
+  font-size: 17px;
+  padding: 6px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.add-task-popup-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.button-add-task,
+.button-cancel-task {
+  width: 49%;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 8px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.button-add-task {
+  background-color: #be0404;
+  border-color: #970303;
+}
+
+.button-cancel-task {
+  background-color: #2abd67;
+  border-color: #10da64;
 }
