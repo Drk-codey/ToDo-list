@@ -1,8 +1,17 @@
+import { projects, displayNewProjects } from "./createProject";
+import { createTaskInit, selectProject, displayTasks, } from "./createtask";
 
+function HomePageInit() {
+  createTaskInit();
+}
 
 function inboxAllTask() {
   const inboxText = document.getElementById("title");
   inboxText.textContent = "Inbox";
+    
+  projects.forEach((project) => {
+    displayTasks(project);
+  });
 }
 
 function initializepage() {
@@ -19,7 +28,7 @@ function initializepage() {
           id="input-taskName" 
           placeholder="Enter Project Title"
         >
-        <textarea id="taskDesc" cols="63" rows="4"></textarea>
+        <textarea id="taskInfo" cols="63" rows="4"></textarea>
         <input type="date" class="input-taskDate" id="input-taskDate">
         <div class="add-task-popup-buttons">
           <button class="button-add-task" id="button-add-task">Add</button>
@@ -28,12 +37,13 @@ function initializepage() {
       </div>
     </div>
 
-    <div class="tiles" id="add-new-task">
+    <div class="tiles none" id="add-new-task">
       <img src="/images/plus-icon.png" alt="" class="icon">
       <p class="data-name">Add Task</p>
     </div> 
   `
+
   inboxAllTask();
 }
 
-export { initializepage };
+export { initializepage, HomePageInit };

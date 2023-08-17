@@ -1,4 +1,4 @@
-import { displayTasks } from "./createtask";
+import { displayTasks, selectProject } from "./createtask";
 
 // Retrieve Projects and tasks from local storage
 let projects = JSON.parse(localStorage.getItem('projects')) || [];
@@ -27,14 +27,14 @@ function displayNewProjects() {
 
   projects.forEach((project, index) => {
     const projectItem = document.createElement("div");
-    projectItem.setAttribute('class', "tiles");
+    projectItem.setAttribute('class', "tiles", "projectItem");
     
     // Create project icons and title
     const projectTitle = document.createElement("p");
     projectTitle.innerText = project.name;
     projectTitle.setAttribute('id', "projectTitle");
     const checkListIcon = document.createElement("img");
-    checkListIcon.src = "./images/checklist.png"
+    checkListIcon.src = "./images/checklist.png";
     checkListIcon.classList.add("icon");
     const deleteIcon = document.createElement("img");
     deleteIcon.src = "./images/cancel.png"
@@ -48,8 +48,11 @@ function displayNewProjects() {
     projectItem.appendChild(deleteIcon);
 
     projectLists.appendChild(projectItem);
-  
-    projectItem.addEventListener('click', () => displayTasks(index), false);
+    
+    projectItem.addEventListener('click', () => {
+      selectProject(index);
+    }, false);
+
     // Click event to delete project & prevents further propagation
     deleteIcon.addEventListener('click', (event) => {
       if (event.target.classList.contains("deleteIcon")) {
@@ -78,8 +81,7 @@ function createProjectDisplay() {
   });
   
   // remove later and place it in homesection.js inti()
-  displayNewProjects();   
-
+  displayNewProjects();
 }
 
 // Eventlistener to add new project when btn is clicked
@@ -92,6 +94,7 @@ btnAddProject.addEventListener("click", () => {
   } else {
     addProject(projectName);
     displayNewProjects();
+    document.getElementById('projectName').value = '';
     return true;
   }
 });

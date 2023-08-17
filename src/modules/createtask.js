@@ -18,11 +18,12 @@ function displayTasks(project) {
     // Clear previous tasks
     todoList.innerHTML = '';
     
-    project.tasks.forEach(task => {
+    project.tasks.forEach((task, index) => {
       const taskItem = document.createElement('div');
       const taskTitle = document.createElement('h3');
       const taskDesc = document.createElement('p');
       const taskDate = document.createElement('p');
+      const taskInfos = document.createElement('div');
       
       const taskComplete = document.createElement('input')
       taskComplete.setAttribute("type", "checkbox");
@@ -31,6 +32,17 @@ function displayTasks(project) {
       deleteTask.src = "./images/cancel.png"
       deleteTask.setAttribute("id", "deleteTask");
 
+      // check complete task
+      taskComplete.addEventListener('change', () => {
+        checkCompleteTask(taskComplete, taskTitle, taskDesc);
+      });
+
+      // Add click event listener to deleteTask
+      deleteTask.addEventListener('click', () => {
+        deleteTaskAtIndex(index, project);
+      });
+
+      taskInfos.setAttribute('id', "taskInfos");
       taskItem.setAttribute('id', "taskItem");
       taskTitle.setAttribute('id', "taskTitle");
       taskDesc.setAttribute('id', "taskDesc");
@@ -40,15 +52,15 @@ function displayTasks(project) {
       taskDesc.textContent = task.details;
       taskDate.textContent = task.dueDate;
 
+      taskInfos.appendChild(taskTitle);
+      taskInfos.appendChild(taskDesc);
       taskItem.appendChild(taskComplete);
-      taskItem.appendChild(taskTitle);
-      taskItem.appendChild(taskDesc);
+      taskItem.appendChild(taskInfos);
       taskItem.appendChild(taskDate);
       taskItem.appendChild(deleteTask);
 
       todoList.appendChild(taskItem);
     });
-
 }
 
 // Function to select a project
@@ -73,49 +85,76 @@ function addTaskFunction(project, index) {
   const addTaskButton = document.getElementById('button-add-task');
   addTaskButton.addEventListener('click', () => {
     const taskTitle = document.getElementById('input-taskName').value;
-    const taskDetail = document.querySelector('textarea').value;
+    const taskDetail = document.getElementById('taskInfo').value;
     const dueDate = document.getElementById('input-taskDate').value;
 
     // Declare current project and its index 
     const selectedProject = project;
     const selectedProjectIndex = index;
-    // console.log(selectedProjectIndex);
     
     if (taskTitle.trim() !== '') {
       addTask(selectedProject, selectedProjectIndex, taskTitle, taskDetail, dueDate);
 
       document.getElementById('input-taskName').value = '';
-      document.document.querySelector('textarea').value = '';
+      document.getElementById('taskInfo').value = '';
       document.getElementById('input-taskDate').value = '';
 
-      const addtaskPopUp = document.getElementById('add-task-popup');
-      addtaskPopUp.style.display = "none";
+      removeTaskDisplay();
     }
   });
 }
-
-
-
-
 
 // Function to display addProject InputBox
 function createTaskDisplay() {
   const addtaskPopUp = document.getElementById('add-task-popup');
   const addNewtask = document.getElementById('add-new-task');
-  const btnCanceltask = document.getElementById('button-cancel-task');
 
   addNewtask.addEventListener("click", function() {
     addtaskPopUp.style.display = "block";
-  });
+  });  
+}
+
+// Function to remove addproject inputBox
+function removeTaskDisplay() {
+  const addtaskPopUp = document.getElementById('add-task-popup');
+  const btnCanceltask = document.getElementById('button-cancel-task');
+  addtaskPopUp.style.display = "none";
   
   btnCanceltask.addEventListener("click", function() {
     addtaskPopUp.style.display = "none";
   });
 }
 
+// Function to checklist when task is completed
+function checkCompleteTask(checkbox, title, desc) {
+  console.log(checkbox.checked);
+  if (checkbox.checked) {
+    title.classList.add("checked");
+    desc.classList.add("checked");
+    console.log("checkbox works");
+  } else {
+    title.classList.remove("checked");
+    desc.classList.remove("checked");
+    console.log("checkbox not check");
+  }
+  updateLocalStorage();
+}
+
+// Function to delete a task at a specific index 
+function deleteTaskAtIndex(taskIndex, project) {
+  // Remove the task at the specified index
+  project.tasks.splice(taskIndex, 1);
+  updateLocalStorage();
+  displayTasks(project);
+}
+
+function createTaskInit() {
+  createTaskDisplay();
+  removeTaskDisplay();
+}
 
 
-export { displayTasks, createTaskDisplay, addTaskFunction, selectProject };
+export { displayTasks, createTaskInit, addTaskFunction, selectProject };
 
 
 
